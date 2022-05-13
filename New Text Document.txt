@@ -1,0 +1,61 @@
+1. CREATE  TABLE PROJECT(
+	ProjectID		Int		NOT NULL,
+	ProjectName Char(100) not null,
+    	Department Char(35) not null,
+    	MaxHours Decimal(10, 2) not null,
+    	StartDate Char(20) not null,
+	EndDate Char(20),
+	CONSTRAINT ProjectID_PK PRIMARY KEY(ProjectID)
+    );
+
+CREATE	 TABLE ASSIGNMENT(
+	ProjectID INT NOT NULL,
+	EmployeeNumber INT NOT NULL,
+   	 HoursWorked decimal(10,2) NOT NULL,
+    	CONSTRAINT ProjectID_FK FOREIGN KEY (ProjectID) REFERENCES PROJECT (ProjectID),
+    	CONSTRAINT EmployeeNumber_FK FOREIGN KEY (EmployeeNumber) REFERENCES employee (EmployeeNumber)
+    );
+
+2. select Department,
+count(EmployeeNumber) from
+Employee E WHERE E.EmployeeNumber <= 10 group by Department having count(Department) >= 2
+   
+
+3. select Project.ProjectID, ProjectName, Project.Department, DepartmentPhone, Employee.EmployeeNumber, LastName, FirstName, OfficePhone
+from Project, Department, Assignment, Employee
+where Project.ProjectID = Assignment.ProjectID
+and Assignment.EmployeeNumber = Employee.EmployeeNumber
+and Project.Department = Department.DepartmentName
+and DepartmentName = 'Sales and Marketing'
+
+4.  CREATE TABLE COMPUTER(
+	SerialNumber INT NOT NULL,
+    Make CHAR(35) NOT NULL, 
+    Model CHAR(35) NOT NULL,
+    ProcessorType CHAR(20) NOT NULL,
+    ProcessorSpeed DECIMAL(10,2) NOT NULL,
+    MainMemory CHAR(50) NOT NULL,
+    DiskSize CHAR(50),
+    CONSTRAINT COMPUTER_PK PRIMARY KEY(SerialNumber)
+    );
+
+
+
+
+
+   CREATE TABLE COMPUTER_ASSIGNMENT(
+		SerialNumber INT NOT NULL,
+        EmployeeNumber INT NOT NULL,
+        DateAssigned CHAR(20) NOT NULL,
+        DateReassigned CHAR(20),
+        CONSTRAINT COMPUTER_SER_FK FOREIGN KEY (SerialNumber) REFERENCES COMPUTER (SerialNumber),
+        CONSTRAINT EMPLOYEE_SER_FK FOREIGN KEY (EmployeeNumber) REFERENCES EMPLOYEE (EmployeeNumber)
+        );
+
+
+
+select Computer.SerialNumber, Make, Model, Employee.EmployeeNumber, LastName, Firstname, Department, OfficePhone
+from Computer, Computer_Assignment, Employee
+where Computer.SerialNumber = Computer_Assignment.SerialNumber
+and Computer_Assignment.EmployeeNumber = Employee.EmployeeNumber
+order by Department, LastName
