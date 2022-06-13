@@ -1,0 +1,27 @@
+--LAB1A
+CREATE TABLE users (id serial PRIMARY KEY,first_name varchar(25),last_name varchar(25),email varchar(100) NOT NULL,password varchar(100) NOT NULL,create_at timestamp,updated_at timestamp)
+
+CREATE TABLE status (
+    id SERIAL PRIMARY KEY,Description text NOT NULL,create_at timestamp,updated_at timestamp)
+
+CREATE TABLE inventory (
+    id SERIAL PRIMARY KEY,
+    status_id INT,
+    description text NOT NULL,
+    create_at timestamp,
+    updated_at timestamp,
+  	FOREIGN key (status_id) REFERENCES status
+)
+
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    inventory_id INT,
+    checkout_time timestamp NOT NULL,
+    scheduled_checkin_time timestamp,
+    actual_checkin_time timestamp,
+    create_at timestamp,
+    updated_at timestamp,
+  	FOREIGN KEY (user_id) REFERENCES users,
+    FOREIGN KEY (inventory_id) REFERENCES inventory
+)
