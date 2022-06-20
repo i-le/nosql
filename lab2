@@ -20,3 +20,13 @@ curl Wast/_,_,_;
 curl South/_,_,_;
 
 curl /_,photo,_;
+{"inputs" : "goog",
+"query" : [{"map": {"language":"javascript",
+"source":"function(value, keyData, arg) {
+  var data = Riak.mapValuesJson(value)[0];
+  if(data.Low && data.Low < 450.00)
+    return [data.Low];
+  else
+    return [];
+} ","keep":true}}]
+};
