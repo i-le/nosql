@@ -1,0 +1,26 @@
+//EDIT Restaurant
+app.get('/restaurant/edit/:id', function(req, res){
+    couchExternal.get(dbName, req.params.id).then(
+    function(data, headers, status){
+    res.render('edit', {
+    });
+    },
+    function(err){
+    res.send(err);
+    });
+    });
+
+//UPDATE Restaurant
+app.post('/restaurant/update'), function(req, res){
+    couchExternal.update(dbName, {
+        _id: req.params.id,
+        _rev: req.body.rev,
+        name: req.body.name,
+        food_type: req.body.food_type,
+        website: req.body.website
+    }).then(function(data, headers,status){
+        res.redirect('/');
+    }, function(err){
+        res.send(err);
+    })
+}
