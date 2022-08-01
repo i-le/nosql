@@ -1,0 +1,7 @@
+#Your create foods table code goes here
+create 'foods', 'fact'
+
+
+#Do not remove the exit call below
+exit
+
